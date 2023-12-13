@@ -1,21 +1,37 @@
 package com.leonardo.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Livro {
+import org.hibernate.annotations.ManyToAny;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+
+@Entity
+public class Livro implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
 	private String nomeAutor;
 	private String texto;
 	
+	@ManyToAny
+	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
 	public Livro() {
 
 	}
 
-	public Livro(int id, String titulo, String nomeAutor, String texto,Categoria categoria) {
+	public Livro(int id, String titulo, String nomeAutor, String texto, Categoria categoria) {
 
 		this.id = id;
 		this.titulo = titulo;
@@ -55,7 +71,6 @@ public class Livro {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	
 
 	public Categoria getCategoria() {
 		return categoria;
