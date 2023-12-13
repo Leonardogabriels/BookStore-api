@@ -3,13 +3,12 @@ package com.leonardo.bookstore.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Livro implements Serializable {
@@ -23,7 +22,7 @@ public class Livro implements Serializable {
 	private String nomeAutor;
 	private String texto;
 	
-	@ManyToAny
+	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
@@ -31,7 +30,7 @@ public class Livro implements Serializable {
 
 	}
 
-	public Livro(int id, String titulo, String nomeAutor, String texto, Categoria categoria) {
+	public Livro(Integer id, String titulo, String nomeAutor, String texto, Categoria categoria) {
 
 		this.id = id;
 		this.titulo = titulo;

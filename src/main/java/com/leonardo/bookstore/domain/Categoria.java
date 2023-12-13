@@ -22,14 +22,14 @@ public class Categoria implements Serializable {
 	private String nome;
 	private String descricao;
 
-	@OneToMany(mappedBy = "categoria")
+	@OneToMany(mappedBy ="categoria" )
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
 		super();
 	}
 
-	public Categoria(int id, String nome, String descricao) {
+	public Categoria(Integer id, String nome, String descricao) {
 
 		this.id = id;
 		this.nome = nome;
