@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.bookstore.domain.Categoria;
+import com.leonardo.bookstore.dtos.CategoriaDTO;
 import com.leonardo.bookstore.exception.ObjectNotFoundException;
 import com.leonardo.bookstore.repositories.CategoriaRepository;
 
@@ -20,15 +21,24 @@ public class CategoriaService {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado id " + id + "tipo " + Categoria.class.getName())); // Optional pois pode ou não
-		//Caso não ache a categoria devolve minha exessão personalizada																		// encontrar o id
+		// Caso não ache a categoria devolve minha exessão personalizada // encontrar o
+		// id
 	}
-	
-	public List<Categoria> findAll() {		 
+
+	public List<Categoria> findAll() {
 		return categoriaRepository.findAll();
 	}
-	
-	public Categoria create (Categoria obj) {
+
+	public Categoria create(Categoria obj) {
 		return categoriaRepository.save(obj);
 	}
-	
+
+	public Categoria update(Integer id, CategoriaDTO obj) {
+		Categoria up = findByid(id);
+		up.setNome(obj.getNome());
+		up.setDescricao(obj.getDescricao());
+		return categoriaRepository.save(up);
+
+	}
+
 }
