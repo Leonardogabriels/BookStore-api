@@ -11,11 +11,11 @@ import com.leonardo.bookstore.service.DBservice;
 @Profile("test")
 public class TestConfig {
 
-	@Autowired
-	private DBservice dbService;
-	
-	@Bean /**sobe o método automaticamente */
-	public void instanciaBase() {
-		this.dbService.instanciaBaseDeDados();
-	}
+    @Autowired
+    private DBservice dbService;
+
+  
+    public void instanciaBase() {
+        this.dbService.instanciaBaseDeDados();
+    }
 }

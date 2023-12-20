@@ -1,5 +1,6 @@
 package com.leonardo.bookstore.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,9 @@ public class CategoriaService {
 				"Objeto não encontrado id " + id + "tipo " + Categoria.class.getName())); // Optional pois pode ou não
 		//Caso não ache a categoria devolve minha exessão personalizada																		// encontrar o id
 	}
-
+	
+	public List<Categoria> findAll() {		 
+		return categoriaRepository.findAll();
+	}
+	
 }

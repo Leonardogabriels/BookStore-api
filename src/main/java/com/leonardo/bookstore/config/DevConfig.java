@@ -18,7 +18,7 @@ public class DevConfig {
 	@Value("${spring.jpa.hibernate.ddl-auto}")//para subir a base de dados smp que dar deploy 
 	private String strategy;
 
-	@Bean /**sobe o método automaticamente */
+	
 	public boolean instanciaBase() {
 		if(this.strategy.equals("create")){
 			this.dbService.instanciaBaseDeDados();
