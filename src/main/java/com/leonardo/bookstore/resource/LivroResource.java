@@ -22,7 +22,7 @@ public class LivroResource {
 	public ResponseEntity<Livro> findById(@PathVariable Integer id){
 		Livro obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
-		
 	}
+	
 
 }
