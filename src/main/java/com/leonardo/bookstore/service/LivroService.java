@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.leonardo.bookstore.domain.Categoria;
 import com.leonardo.bookstore.domain.Livro;
-import com.leonardo.bookstore.dtos.LivrosDTO;
-import com.leonardo.bookstore.exception.DataIntegrityViolationException;
 import com.leonardo.bookstore.exception.ObjectNotFoundException;
 import com.leonardo.bookstore.repositories.LivroRepository;
 
@@ -19,6 +17,9 @@ public class LivroService {
 	@Autowired
 	private LivroRepository Repository;
 	
+	@Autowired
+	private CategoriaService categoriaService;
+	
 	public Livro findById(Integer id){
 		Optional<Livro> obj = Repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -26,19 +27,27 @@ public class LivroService {
 		
 	}
 	
-	public List<Livro> findAll() {
-		return Repository.findAll();
+	public List<Livro> findAll(Integer idCat) {
+		categoriaService.findByid(idCat);
+		
+		return Repository.findAllByCategoria(idCat);
 	}
 
 	
-	public Livro update(Integer id, LivrosDTO obj) {
+	public Livro update(Integer id, Livro obj) {
 		Livro up = findById(id);
-		up.setNomeAutor(obj.getNomeAutor());;
-		up.setTitulo(obj.getTitulo());
+		updateData(up,obj);		
 		return Repository.save(up);
 		
 	}
 	
+	private void updateData(Livro newObj, Livro obj) {
+		newObj.setNomeAutor(obj.getNomeAutor());;
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setTexto(obj.getTexto());
+		
+	}
+
 	public void delete(Integer id) {
 	    Livro LivroDel = findById(id);
 
@@ -49,5 +58,11 @@ public class LivroService {
 		} else {
 			throw new IllegalArgumentException("Livro não encontrada com o ID: " + id);
 		}
+	}
+	
+	public Livro create(Integer idCat,Livro obj) {
+		Categoria cat = categoriaService.findByid(idCat);
+		obj.setCategoria(cat);
+		return Repository.save(obj);
 	}
 }
