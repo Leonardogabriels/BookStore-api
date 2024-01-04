@@ -26,12 +26,19 @@ public class LivroService {
 				"Objeto não encontrado id " + id + "tipo " + Categoria.class.getName()));
 		
 	}
-	
-	public List<Livro> findAll(Integer idCat) {
-		categoriaService.findByid(idCat);
-		
-		return Repository.findAllByCategoria(idCat);
+
+	public List<Livro> findAll(Integer idCategoria) {
+	    Categoria categoria = categoriaService.findByid(idCategoria);
+
+	    if (categoria == null) {
+	        // Lógica para tratar categoria não encontrada, como lançar uma exceção
+	        throw new RuntimeException("Categoria não encontrada para o ID: " + idCategoria);
+	    }
+
+	    return Repository.findAllByCategoria(idCategoria);
 	}
+
+
 
 	
 	public Livro update(Integer id, Livro obj) {
